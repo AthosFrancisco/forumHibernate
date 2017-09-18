@@ -13,8 +13,7 @@ import javax.persistence.*;
 public class Usuario implements Serializable {
 
     @Id
-    @SequenceGenerator(name = "seq_usu", initialValue = 1, allocationSize = 20)
-    @GeneratedValue(generator = "seq_usu", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(nullable = false)
     private String nome;
@@ -26,7 +25,7 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private TipoUsuario tipoUsuario;
     
-    @OneToMany()
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pergunta> perguntas;
 
     public Usuario() {
@@ -36,7 +35,7 @@ public class Usuario implements Serializable {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.tipoUsuario = tipoUsuario;
+        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
     }
 
     public Integer getId() {
@@ -76,7 +75,7 @@ public class Usuario implements Serializable {
     }
 
     public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
+        this.setTipoUsuario(TipoUsuario.valueOf(tipoUsuario));
     }
 
     public List<Pergunta> getPerguntas() {
@@ -85,5 +84,9 @@ public class Usuario implements Serializable {
 
     public void setPerguntas(List<Pergunta> perguntas) {
         this.perguntas = perguntas;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 }

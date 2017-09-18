@@ -1,59 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package teste;
 
-import dao.PerguntaDAO;
-import java.sql.Date;
-import java.util.List;
+import dao.Conexao;
+import java.util.Calendar;
+import javax.persistence.EntityManager;
 import model.Pergunta;
 import model.Usuario;
 
-/**
- *
- * @author Aluno
- */
 public class TestePergunta {
     
     public static void main(String[] args) {
         
-        Usuario u = new Usuario();
-        u.setId(10);
+        Calendar data = Calendar.getInstance();
+        data.set(2017, Calendar.SEPTEMBER, 4);
         
-        Pergunta pergunta = new Pergunta();
-        //pergunta.setId(2);
-        pergunta.setUsuario(u);
-        pergunta.setPeriodo("1");
-        pergunta.setMateria("PPOS");
-        pergunta.setDatapostagem(new Date(System.currentTimeMillis()));
-        pergunta.setTextopergunta("olá");
+        Usuario usu = new Usuario("athos", "athos@gmail.com", "123", "ADMINISTRADOR");
         
-        PerguntaDAO perguntaDAO = new PerguntaDAO();
+        //Pergunta perg = new Pergunta(data, "1", "LPOO", "oi");
         
-        //pergunta = perguntaDAO.buscar(1);
-        //System.out.println(pergunta.getDatapostagem()+" "+pergunta.getTextopergunta());
+        EntityManager em = Conexao.getConexao();
         
-        /*List<Pergunta> lista = perguntaDAO.buscarPorUsuario(3);
-        for(int i = 0; i < lista.size(); i++){
-            Pergunta p = lista.get(i);
-            
-            System.out.println(p.getDatapostagem()+" "+p.getTextopergunta());
-        }*/
-        
-        List<Pergunta> lista = perguntaDAO.buscarTodas();
-        for(int i = 0; i < lista.size(); i++){
-            Pergunta p = lista.get(i);
-            
-            System.out.println(p.getDatapostagem()+" "+p.getTextopergunta());
-        }
-        
-        //perguntaDAO.excluir(2);
-        //perguntaDAO.excluirPorUsuario(3);
-        
-        //perguntaDAO.criar(pergunta);
-        
+        em.getTransaction().begin();
+        em.persist(usu);
+        //em.persist(perg);
+        em.getTransaction().commit();
+        em.close();
     }
 }

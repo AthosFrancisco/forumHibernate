@@ -1,10 +1,10 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
 
-    <persistence-unit name="persistence" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="persistencia" transaction-type="RESOURCE_LOCAL">
 
         <!-- provedor/implementacao do JPA -->
-        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 
         <!-- entidade mapeada -->
         <class>model.Usuario</class>
@@ -24,7 +24,7 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
             <property name="hibernate.format_sql" value="true" />
 
             <!--  atualiza o banco, gera as tabelas se for preciso -->
-            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables" />
     
         </properties>
     </persistence-unit>

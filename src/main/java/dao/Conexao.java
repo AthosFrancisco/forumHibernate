@@ -13,11 +13,11 @@ import javax.persistence.*;
  */
 public class Conexao {
     
-    private static EntityManagerFactory emf;
-    private static EntityManager em;
+    private static final EntityManagerFactory emf;
+    private static final EntityManager em;
     
     static{
-        emf = Persistence.createEntityManagerFactory("persistence");
+        emf = Persistence.createEntityManagerFactory("persistencia");
         em = emf.createEntityManager();
     }
     
