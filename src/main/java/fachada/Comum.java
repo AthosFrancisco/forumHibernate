@@ -17,7 +17,7 @@ public class Comum extends UsuarioFachada {
 
     public Comum(){}
     
-    public Comum(Usuario u){
+    public Comum(UsuarioFachada u){
         setId(u.getId());
         setNome(u.getNome());
         setEmail(u.getEmail());

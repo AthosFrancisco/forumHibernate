@@ -5,7 +5,10 @@
  */
 package fachada;
 
+import dao.Conexao;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import model.Pergunta;
 import model.Usuario;
 import model.Resposta;
@@ -15,11 +18,21 @@ import model.Resposta;
  * @author Aluno
  */
 public class UsuarioFachada extends Usuario {
-
-    public UsuarioFachada() {
+    
+    
+    protected static EntityManager em = Conexao.getConexao();
+    
+    protected static Usuario passarParaUsuario(UsuarioFachada usu){
+        Usuario u = new Usuario(usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario());
+        return u;
     }
     
     public void criarUsuario(UsuarioFachada usu) {
+        
+        em.getTransaction().begin();
+        em.persist(passarParaUsuario(usu));
+        em.getTransaction().commit();
+        em.close();
     }
 
     public void alterarUsuario(UsuarioFachada usu) {
@@ -30,13 +43,15 @@ public class UsuarioFachada extends Usuario {
     }
 
     public List<UsuarioFachada> todosUsuarios() {
-
         return null;
     }
 
     //Pergunta
     public List<Pergunta> verPerguntas() {
-        return null;
+        
+        List<Pergunta> perguntas = em.createQuery("SELECT p FROM Pergunta p").getResultList();
+        
+        return perguntas;
     }
 
     public List<Pergunta> verPerguntasProprias() {
@@ -46,7 +61,9 @@ public class UsuarioFachada extends Usuario {
 
     public Pergunta verPergunta(int idPergunta) {
         
-        return null;
+        Pergunta p = em.find(Pergunta.class, idPergunta);
+        
+        return p;
     }
 
     public void criarPergunta(Pergunta p) {
@@ -60,8 +77,13 @@ public class UsuarioFachada extends Usuario {
 
     //Resposta
     public List<Resposta> verRespostas(int idPergunta) {
-
-        return null;
+        
+        Query q = em.createQuery("SELECT r FROM Resposta r WHERE r.pergunta = :idpergunta");
+        q.setParameter("idpergunta", q);
+        
+        List<Resposta> respostas = q.getResultList();
+        
+        return respostas;
     }
 
     public void criarResposta(Resposta r) {
