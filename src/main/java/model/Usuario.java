@@ -13,7 +13,8 @@ import javax.persistence.*;
 public class Usuario implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "seq_usu", allocationSize = 20, initialValue = 1)
+    @GeneratedValue(generator = "seq_usu", strategy = GenerationType.AUTO)
     private Integer id;
     @Column(nullable = false)
     private String nome;
@@ -27,6 +28,9 @@ public class Usuario implements Serializable {
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pergunta> perguntas;
+    
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resposta> respostas;
 
     public Usuario() {
     }
