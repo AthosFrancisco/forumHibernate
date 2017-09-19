@@ -12,6 +12,19 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class Usuario implements Serializable {
 
+    public Usuario(){}
+    
+    public Usuario(int id){
+        this.id = id;
+    }
+    
+    public Usuario(String nome, String email, String senha, String tipoUsuario) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
+    }
+    
     @Id
     @SequenceGenerator(name = "seq_usu", allocationSize = 20, initialValue = 1)
     @GeneratedValue(generator = "seq_usu", strategy = GenerationType.AUTO)
@@ -31,16 +44,6 @@ public class Usuario implements Serializable {
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
-
-    public Usuario() {
-    }
-
-    public Usuario(String nome, String email, String senha, String tipoUsuario) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
-    }
 
     public Integer getId() {
         return this.id;
@@ -79,7 +82,7 @@ public class Usuario implements Serializable {
     }
 
     public void setTipoUsuario(String tipoUsuario) {
-        this.setTipoUsuario(TipoUsuario.valueOf(tipoUsuario));
+        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
     }
 
     public List<Pergunta> getPerguntas() {
@@ -88,9 +91,5 @@ public class Usuario implements Serializable {
 
     public void setPerguntas(List<Pergunta> perguntas) {
         this.perguntas = perguntas;
-    }
-
-    public void setTipoUsuario(TipoUsuario tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
     }
 }

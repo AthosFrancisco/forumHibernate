@@ -18,10 +18,14 @@ public class TestePergunta {
         
         EntityManager em = Conexao.getConexao();
         
-        em.getTransaction().begin();
-        //em.persist(usu);
-        em.persist(perg);
-        em.getTransaction().commit();
-        em.close();
+//        em.getTransaction().begin();
+//        //em.persist(usu);
+//        em.persist(perg);
+//        em.getTransaction().commit();
+//        em.close();
+
+        Pergunta p = em.find(Pergunta.class, 1);
+        
+        System.out.println(p.getNomeUsuario());
     }
 }

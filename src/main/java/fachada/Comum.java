@@ -5,8 +5,6 @@
  */
 package fachada;
 
-import dao.UsuarioDAO;
-import static fachada.UsuarioFachada.usuDAO;
 import java.util.ArrayList;
 import java.util.List;
 import model.Usuario;
@@ -17,24 +15,15 @@ import model.Usuario;
  */
 public class Comum extends UsuarioFachada {
 
-    public Comum() {
-        usuDAO = new UsuarioDAO();
-        perguntaFachada = new PerguntaFachada();
-        respostaFachada = new RespostaFachada();
+    public Comum(){}
+    
+    public Comum(Usuario u){
+        setId(u.getId());
+        setNome(u.getNome());
+        setEmail(u.getEmail());
+        setTipoUsuario(u.getTipoUsuario());
     }
-
-    public Comum(Usuario usu) {
-        setId(usu.getId());
-        setNome(usu.getNome());
-        setEmail(usu.getEmail());
-        setSenha(usu.getSenha());
-        setTipousuario(usu.getTipousuario());
-        usuDAO = new UsuarioDAO();
-        perguntaFachada = new PerguntaFachada();
-        respostaFachada = new RespostaFachada();
-    }
-
-    @Override
+    
     public void criarUsuario(UsuarioFachada u) {
     }
 

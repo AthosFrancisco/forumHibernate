@@ -6,7 +6,9 @@
 
 package fachada;
 
-import dao.UsuarioDAO;
+import dao.Conexao;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import model.Usuario;
 
 /**
@@ -17,21 +19,23 @@ public class CriarUsuario {
     
     public static UsuarioFachada criar(String login, String senha){
         
-        Usuario usu = new Usuario();
-        usu.setEmail(login);
-        usu.setSenha(senha);
+        EntityManager em = Conexao.getConexao();
+        Query q = em.createNamedQuery("select u from Usuario u WHERE u.email = :email and u.senha = :senha");
         
-        UsuarioDAO usuDAO = new UsuarioDAO();
-        Usuario a = usuDAO.busca(usu);
-        String tipoUsuario = a.getTipousuario();
+        q.setParameter("email", login);
+        q.setParameter("senha", senha);
+        
+        Usuario usu = (Usuario)q.getSingleResult();
+
+        String tipoUsuario = usu.getTipoUsuario();
         
         switch(tipoUsuario.toUpperCase()){
             case "COMUM":
-                return new Comum(a);
+                return new Comum(usu);
             case "MODERADOR":
-                return new Moderador(a);
+                return new Moderador(usu);
             case "ADMINISTRADOR":
-                return new Administrador(a);
+                return new Administrador(usu);
             default:
                 return new UsuarioFachada();
         }

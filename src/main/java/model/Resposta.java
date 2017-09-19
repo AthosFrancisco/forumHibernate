@@ -22,9 +22,8 @@ public class Resposta implements Serializable {
     private Date dataPostagem;
     @Column(nullable = false)
     private String textoResposta;
-//    @Basic(fetch = FetchType.EAGER)
-//    @Column(name = "nome", table = "usuario", nullable = false)
-//    private String nomeUsuario;
+    @Transient
+    private String nomeUsuario;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Pergunta pergunta;
@@ -64,12 +63,25 @@ public class Resposta implements Serializable {
         this.textoResposta = textoResposta;
     }
 
-//    public String getNomeUsuario() {
-//        return nomeUsuario;
-//    }
-//
-//    public void setNomeUsuario(String nomeUsuario) {
-//        this.nomeUsuario = nomeUsuario;
-//    }
+    public String getNomeUsuario() {
+        return usuario.getNome();
+    }
+
+
+    public Pergunta getPergunta() {
+        return pergunta;
+    }
+
+    public void setPergunta(Pergunta pergunta) {
+        this.pergunta = pergunta;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
 }

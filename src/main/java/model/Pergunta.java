@@ -14,6 +14,19 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class Pergunta implements Serializable {
 
+    public Pergunta(){}
+    
+    public Pergunta(int id){
+        this.id = id;
+    }
+    
+    public Pergunta(Date dataPostagem, String periodo, String materia, String textoPergunta) {
+        this.dataPostagem = dataPostagem;
+        this.periodo = periodo;
+        this.materia = materia;
+        this.textoPergunta = textoPergunta;
+    }
+    
     @Id
     @SequenceGenerator(name = "seq_perg", allocationSize = 20, initialValue = 1)
     @GeneratedValue(generator = "seq_perg", strategy = GenerationType.AUTO)
@@ -31,22 +44,11 @@ public class Pergunta implements Serializable {
     @OneToMany(mappedBy = "pergunta", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas;
     
-//    @Basic(fetch = FetchType.EAGER)
-//    @Column(name = "nome", table = "usuario", nullable = false)
-//    private String nomeUsuario;
+    @Transient
+    private String nomeUsuario;
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Usuario usuario;
-
-    public Pergunta() {
-    }
-
-    public Pergunta(Date dataPostagem, String periodo, String materia, String textoPergunta) {
-        this.dataPostagem = dataPostagem;
-        this.periodo = periodo;
-        this.materia = materia;
-        this.textoPergunta = textoPergunta;
-    }
 
     public Integer getId() {
         return id;
@@ -95,15 +97,11 @@ public class Pergunta implements Serializable {
     public void setRespostas(List<Resposta> respostas) {
         this.respostas = respostas;
     }
-//
-//    public String getNomeUsuario() {
-//        return nomeUsuario;
-//    }
-//
-//    public void setNomeUsuario(String nomeUsuario) {
-//        this.nomeUsuario = nomeUsuario;
-//    }
-//
+
+    public String getNomeUsuario() {
+        return usuario.getNome();
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
