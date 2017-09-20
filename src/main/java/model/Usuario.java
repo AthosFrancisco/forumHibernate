@@ -25,6 +25,14 @@ public class Usuario implements Serializable {
         this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
     }
     
+    public Usuario(int id, String nome, String email, String senha, String tipoUsuario) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipoUsuario = TipoUsuario.valueOf(tipoUsuario);
+    }
+    
     @Id
     @SequenceGenerator(name = "seq_usu", allocationSize = 20, initialValue = 1)
     @GeneratedValue(generator = "seq_usu", strategy = GenerationType.AUTO)
@@ -39,10 +47,10 @@ public class Usuario implements Serializable {
     @Column(nullable = false)
     private TipoUsuario tipoUsuario;
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Pergunta> perguntas;
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = false)
     private List<Resposta> respostas;
 
     public Integer getId() {

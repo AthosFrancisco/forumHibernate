@@ -5,7 +5,7 @@
  */
 package teste;
 
-import dao.Conexao;
+import model.Conexao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import model.Pergunta;

@@ -13,6 +13,11 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class Resposta implements Serializable {
 
+    @Transient
+    private String excluir = "";
+    @Transient
+    private String editar = "";
+    
     @Id
     @SequenceGenerator(name = "seq_resp", allocationSize = 20, initialValue = 1)
     @GeneratedValue(generator = "seq_resp", strategy = GenerationType.AUTO)
@@ -82,6 +87,22 @@ public class Resposta implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getExcluir() {
+        return excluir;
+    }
+
+    public void setExcluir(String excluir) {
+        this.excluir = excluir;
+    }
+
+    public String getEditar() {
+        return editar;
+    }
+
+    public void setEditar(String editar) {
+        this.editar = editar;
     }
 
 }

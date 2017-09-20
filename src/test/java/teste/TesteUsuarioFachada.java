@@ -37,14 +37,17 @@ public class TesteUsuarioFachada {
 //            System.out.println(perg.getNomeUsuario());
 //        }
 
-        List<Resposta> r = u.verRespostas(1);
-        
-        for(Resposta resp: r){
-            
-            System.out.println(resp.getId());
-            System.out.println(resp.getDataPostagem());
-            System.out.println(resp.getTextoResposta());
-            System.out.println(resp.getNomeUsuario());
-        }
+//        List<Resposta> r = u.verRespostas(1);
+//        
+//        for(Resposta resp: r){
+//            
+//            System.out.println(resp.getId());
+//            System.out.println(resp.getDataPostagem());
+//            System.out.println(resp.getTextoResposta());
+//            System.out.println(resp.getNomeUsuario());
+//        }
+
+        Pergunta p = u.verPergunta(1);
+        System.out.println(p.getTextoPergunta());
     }
 }

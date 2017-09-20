@@ -6,7 +6,7 @@
 
 package fachada;
 
-import dao.Conexao;
+import model.Conexao;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import model.Usuario;
@@ -20,7 +20,7 @@ public class CriarUsuario {
     public static UsuarioFachada criar(String login, String senha){
         
         EntityManager em = Conexao.getConexao();
-        Query q = em.createNamedQuery("select u from Usuario u WHERE u.email = :email and u.senha = :senha");
+        Query q = em.createQuery("select u from Usuario u where u.email = :email and u.senha = :senha");
         
         q.setParameter("email", login);
         q.setParameter("senha", senha);

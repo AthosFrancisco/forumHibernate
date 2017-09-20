@@ -5,7 +5,7 @@
  */
 package teste;
 
-import dao.Conexao;
+import model.Conexao;
 import javax.persistence.EntityManager;
 
 /**

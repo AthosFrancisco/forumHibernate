@@ -5,7 +5,7 @@
  */
 package fachada;
 
-import dao.Conexao;
+import model.Conexao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -22,15 +22,12 @@ public class UsuarioFachada extends Usuario {
     
     protected static EntityManager em = Conexao.getConexao();
     
-    protected static Usuario passarParaUsuario(UsuarioFachada usu){
-        Usuario u = new Usuario(usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario());
-        return u;
-    }
+    ;
     
     public void criarUsuario(UsuarioFachada usu) {
         
         em.getTransaction().begin();
-        em.persist(passarParaUsuario(usu));
+        em.persist(new Usuario(usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario()));
         em.getTransaction().commit();
         em.close();
     }
@@ -78,8 +75,8 @@ public class UsuarioFachada extends Usuario {
     //Resposta
     public List<Resposta> verRespostas(int idPergunta) {
         
-        Query q = em.createQuery("SELECT r FROM Resposta r WHERE r.pergunta = :idpergunta");
-        q.setParameter("idpergunta", q);
+        Query q = em.createQuery("SELECT r FROM Resposta r WHERE pergunta = :idpergunta");
+        q.setParameter("idpergunta", new Pergunta(idPergunta));
         
         List<Resposta> respostas = q.getResultList();
         

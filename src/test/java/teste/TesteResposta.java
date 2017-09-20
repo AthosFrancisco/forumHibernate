@@ -6,7 +6,7 @@
 
 package teste;
 
-import dao.Conexao;
+import model.Conexao;
 import java.util.Date;
 import javax.persistence.EntityManager;
 import model.Pergunta;
@@ -22,8 +22,8 @@ public class TesteResposta {
     public static void main(String[] args) {
         
         Resposta resp = new Resposta(new Date(), "oi");
-        resp.setPergunta(new Pergunta(1));
-        resp.setUsuario(new Usuario(1));
+        resp.setPergunta(new Pergunta(5));
+        resp.setUsuario(new Usuario(2));
         
         EntityManager em = Conexao.getConexao();
         

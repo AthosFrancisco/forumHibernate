@@ -7,6 +7,9 @@ package fachada;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Query;
+import model.Pergunta;
+import model.Resposta;
 import model.Usuario;
 
 /**
@@ -15,30 +18,25 @@ import model.Usuario;
  */
 public class Comum extends UsuarioFachada {
 
-    public Comum(){}
-    
-    public Comum(UsuarioFachada u){
+    public Comum() {
+    }
+
+    public Comum(Usuario u) {
         setId(u.getId());
         setNome(u.getNome());
         setEmail(u.getEmail());
         setTipoUsuario(u.getTipoUsuario());
     }
-    
-    public void criarUsuario(UsuarioFachada u) {
-    }
 
     @Override
     public void alterarUsuario(UsuarioFachada usu) {
         if (getId() == usu.getId()) {
-            
-            Usuario u = new Usuario();
-            u.setId(usu.getId());
-            u.setNome(usu.getNome());
-            u.setEmail(usu.getEmail());
-            u.setSenha(usu.getSenha());
-            u.setTipousuario(usu.getTipousuario());
-            
-            usuDAO.alterar(u);
+
+            Usuario u = new Usuario(usu.getId(), usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario());
+            em.getTransaction().begin();
+            em.merge(u);
+            em.getTransaction().commit();
+            em.close();
         }
     }
 
@@ -46,117 +44,134 @@ public class Comum extends UsuarioFachada {
     @Override
     public void excluirUsuario(int idUsuario) {
         if (getId() == idUsuario) {
-            respostaFachada.excluirPorUsuario(idUsuario);
-            perguntaFachada.excluirPorUsuario(idUsuario);
-            usuDAO.excluir(idUsuario);
+            em.getTransaction().begin();
+
+            Usuario u = em.find(Usuario.class, idUsuario);
+
+            em.remove(u);
+            em.getTransaction().commit();
+            em.close();
         }
     }
 
     //Pergunta
     @Override
-    public List<PerguntaFachada> verPerguntas() {
+    public List<Pergunta> verPerguntas() {
 
-        List<PerguntaFachada> listaPergunta = perguntaFachada.verPerguntas();
-        List<PerguntaFachada> listaPerguntaFachada = new ArrayList<>();
+        List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
 
         for (int i = 0; i < listaPergunta.size(); i++) {
 
-            PerguntaFachada perg = listaPergunta.get(i);
-            perg.setNomeAutor(usuDAO.buscarNome(perg.getUsuario().getId()));
-
-            if (getId() == perg.getUsuario().getId()) {
-                perg.setEditar("editar");
-                perg.setExcluir("excluir");
+            if (getId() == listaPergunta.get(i).getUsuario().getId()) {
+                listaPergunta.get(i).setEditar("editar");
+                listaPergunta.get(i).setExcluir("excluir");
             }
-
-            listaPerguntaFachada.add(perg);
         }
 
-        listaPergunta = null;
-
-        return listaPerguntaFachada;
+        return listaPergunta;
     }
 
     @Override
-    public List<PerguntaFachada> verPerguntasProprias() {
+    public List<Pergunta> verPerguntasProprias() {
 
-        List<PerguntaFachada> listaPergunta = perguntaFachada.verPerguntasProprias(getId());
-        List<PerguntaFachada> listaPerguntaFachada = new ArrayList<>();
+        List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
 
         for (int i = 0; i < listaPergunta.size(); i++) {
 
-            PerguntaFachada perg = listaPergunta.get(i);
-            perg.setNomeAutor(usuDAO.buscarNome(perg.getUsuario().getId()));
-
-            perg.setEditar("editar");
-            perg.setExcluir("excluir");
-
-            listaPerguntaFachada.add(perg);
+            listaPergunta.get(i).setEditar("editar");
+            listaPergunta.get(i).setExcluir("excluir");
         }
 
-        listaPergunta = null;
-
-        return listaPerguntaFachada;
+        return listaPergunta;
     }
 
     @Override
-    public void criarPergunta(PerguntaFachada p) {
+    public void criarPergunta(Pergunta p) {
         if (getId() == p.getUsuario().getId()) {
-            perguntaFachada.criar(p);
+
+            em.getTransaction().begin();
+            em.persist(p);
+            em.getTransaction().commit();
+            em.close();
         }
     }
 
     @Override
-    public void editarPergunta(PerguntaFachada p) {
+    public void editarPergunta(Pergunta p) {
         if (getId() == p.getUsuario().getId()) {
-            perguntaFachada.editar(p);
+
+            em.getTransaction().begin();
+            em.merge(p);
+            em.getTransaction().commit();
+            em.close();
         }
     }
 
     @Override
     public void excluirPergunta(int idPergunta) {
-            perguntaFachada.excluir(idPergunta);
+        Pergunta p = em.find(Pergunta.class, idPergunta);
+
+        if (getId() == p.getUsuario().getId()) {
+            em.getTransaction().begin();
+            em.remove(p);
+            em.getTransaction().commit();
+            em.close();
+        }
     }
 
     //Resposta
     @Override
-    public List<RespostaFachada> verRespostas(int idPergunta) {
+    public List<Resposta> verRespostas(int idPergunta) {
 
-        List<RespostaFachada> listaResposta = respostaFachada.verRespostas(idPergunta);
-        List<RespostaFachada> listaRespostaFachada = new ArrayList<>();
-
+        Query q = em.createQuery("select r from Resposta r where pergunta = :p");
+        q.setParameter("p", new Pergunta(idPergunta));
+        
+        List<Resposta> listaResposta = q.getResultList();
+        
+        
         for (int i = 0; i < listaResposta.size(); i++) {
 
-            RespostaFachada resp = listaResposta.get(i);
-            resp.setNomeAutor(usuDAO.buscarNome(resp.getUsuario().getId()));
-
-            if (getId() == resp.getUsuario().getId()) {
-                resp.setEditar("editar");
-                resp.setExcluir("excluir");
+            if (getId() == listaResposta.get(i).getUsuario().getId()) {
+                listaResposta.get(i).setEditar("editar");
+                listaResposta.get(i).setExcluir("excluir");
             }
-
-            listaRespostaFachada.add(resp);
         }
 
-        listaResposta = null;
-
-        return listaRespostaFachada;
+        return listaResposta;
     }
 
     @Override
-    public void criarResposta(RespostaFachada r) {
+    public void criarResposta(Resposta r) {
         if (getId() == r.getUsuario().getId()) {
-            respostaFachada.criar(r);
+            
+            em.getTransaction().begin();
+            em.persist(r);
+            em.getTransaction().commit();
+            em.close();
         }
     }
 
     @Override
-    public void editarResposta(RespostaFachada r) {
-            respostaFachada.editar(r);
+    public void editarResposta(Resposta r) {
+        if (getId() == r.getUsuario().getId()) {
+            
+            em.getTransaction().begin();
+            em.merge(r);
+            em.getTransaction().commit();
+            em.close();
+        }
     }
 
     @Override
     public void excluirResposta(int idResposta) {
-        respostaFachada.excluir(idResposta);
+        Resposta r = em.find(Resposta.class, idResposta);
+                
+        if (getId() == r.getUsuario().getId()) {
+            
+            em.getTransaction().begin();
+            em.remove(r);
+            em.getTransaction().commit();
+            em.close();
+        }
     }
 }
