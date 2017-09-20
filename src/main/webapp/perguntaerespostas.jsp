@@ -35,11 +35,11 @@
 
             <div class="container-fluid">
                 <h2>Pergunta</h2>
-                <p>Autor: ${requestScope.pergunta.nomeAutor}</p>
+                <p>Autor: ${requestScope.pergunta.nomeUsuario}</p>
                 <p>Periodo: ${requestScope.pergunta.periodo}</p>
                 <p>Materia: ${requestScope.pergunta.materia}</p>
-                <p>Data da postagem: ${requestScope.pergunta.datapostagem}</p>
-                <p>Pergunta: ${requestScope.pergunta.textopergunta}</p>
+                <p>Data da postagem: ${requestScope.pergunta.dataPostagem}</p>
+                <p>Pergunta: ${requestScope.pergunta.textoPergunta}</p>
             </div>
 
             <h3>Respostas</h3>
@@ -51,9 +51,9 @@
                     <input type="text" name="id" value="${r.id}" readonly="readonly" style="display: none">
                     <input type="text" name="idusuario" value="${r.usuario.id}" readonly="readonly" style="display: none">
                     <input type="text" name="idpergunta" value="${r.pergunta.id}" readonly="readonly" style="display: none">
-                    <input type="text" name="data" value="${r.datapostagem}" readonly="readonly">
-                    <input type="text" name="nome" value="${r.nomeAutor}" readonly="readonly">
-                    <textarea id="resposta${r.id}" name="textoresposta" readonly="">${r.textoresposta}</textarea>
+                    <input type="text" name="data" value="${r.dataPostagem}" readonly="readonly">
+                    <input type="text" name="nome" value="${r.nomeUsuario}" readonly="readonly">
+                    <textarea id="resposta${r.id}" name="textoresposta" readonly="">${r.textoResposta}</textarea>
                     <a onclick="document.getElementById('resposta${r.id}').removeAttribute('readonly')" href="#resposta${r.id}">${r.editar}</a>
                     <input type="submit" value="${r.editar}" onmouseover="document.getElementById('${r.id}').value = '${r.editar}resposta'">
                     <input type="submit" value="${r.excluir}" onmouseover="document.getElementById('${r.id}').value = '${r.excluir}resposta'">

@@ -19,12 +19,12 @@ public class TesteUsuarioFachada {
     public static void main(String[] args) {
         
         UsuarioFachada u = new UsuarioFachada();
-        u.setNome("Athos");
-        u.setEmail("athos@gmail.com");
+        u.setNome("Ana");
+        u.setEmail("ana@gmail.com");
         u.setSenha("123");
-        u.setTipoUsuario("COMUM");
+        u.setTipoUsuario("MODERADOR");
         
-        //u.criarUsuario(u);
+        u.criarUsuario(u);
 //        List<Pergunta> p = u.verPerguntas();
 //        
 //        for(Pergunta perg: p){
@@ -47,7 +47,7 @@ public class TesteUsuarioFachada {
 //            System.out.println(resp.getNomeUsuario());
 //        }
 
-        Pergunta p = u.verPergunta(1);
-        System.out.println(p.getTextoPergunta());
+//        Pergunta p = u.verPergunta(1);
+//        System.out.println(p.getTextoPergunta());
     }
 }

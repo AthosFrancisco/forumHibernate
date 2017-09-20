@@ -33,7 +33,7 @@
                     <br>Id: <input type="text" name="id" value="${u.id}" readonly="readonly">
                     <br>Nome: <input type="text" name="nome" value="${u.nome}" readonly="readonly">
                     <br>Email: <input type="text" name="email" value="${u.email}" readonly="readonly">
-                    <br>Tipo Usuário: <input type="text" value="${u.tipousuario}" readonly="readonly">
+                    <br>Tipo Usuário: <input type="text" value="${u.tipoUsuario}" readonly="readonly">
                     <br><input type="radio" name="tipousuario" value="Comum"> Comum
                     <input type="radio" name="tipousuario" value="Moderador"> Moderador
                     <input type="radio" name="tipousuario" value="Administrador"> Administrador

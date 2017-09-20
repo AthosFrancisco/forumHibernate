@@ -16,9 +16,7 @@ import model.Usuario;
  */
 public class Administrador extends Moderador{
     
-    public Administrador(){
-        super();
-    }
+    public Administrador(){}
     
     public Administrador(Usuario usu){
         super(usu);
@@ -27,7 +25,7 @@ public class Administrador extends Moderador{
     @Override
     public List<UsuarioFachada> todosUsuarios(){
         
-        List<Usuario> lista = usuDAO.buscarTodos();
+        List<Usuario> lista = em.createQuery("select u from Usuario u").getResultList();
         List<UsuarioFachada> listaFachada = new ArrayList<>();
         
         for(Usuario usu: lista){
@@ -41,20 +39,23 @@ public class Administrador extends Moderador{
     @Override
     public void alterarUsuario(UsuarioFachada usu) {
             
-            Usuario u = new Usuario();
-            u.setId(usu.getId());
-            u.setNome(usu.getNome());
-            u.setEmail(usu.getEmail());
-            u.setSenha(usu.getSenha());
-            u.setTipousuario(usu.getTipousuario());
+            Usuario u = new Usuario(usu.getId(), usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario());
             
-            usuDAO.alterar(u);
+            em.getTransaction().begin();
+            em.merge(u);
+            em.getTransaction().commit();
+            em.close();
     }
     
     @Override
     public void excluirUsuario(int idUsuario) {
-        respostaFachada.excluirPorUsuario(idUsuario);
-        perguntaFachada.excluirPorUsuario(idUsuario);
-        usuDAO.excluir(idUsuario);
+        
+        em.getTransaction().begin();
+        
+        Usuario u = em.find(Usuario.class, idUsuario);
+        
+        em.remove(u);
+        em.getTransaction().commit();
+        em.close();
     }
 }

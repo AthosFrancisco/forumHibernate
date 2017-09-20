@@ -21,7 +21,7 @@
             <a button type="button" class="btn btn-default" href="IndexController">Home</a>
             <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
             <a button type="button" class="btn btn-default" href="${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a>
-            
+
             <h2>Formulário de Cadastro</h2>
 
             <form action="UsuarioController" method="post">

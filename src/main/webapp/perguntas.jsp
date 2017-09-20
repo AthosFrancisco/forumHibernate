@@ -31,10 +31,10 @@
                     <br><input type="text" name="idusuario" value="${p.usuario.id}" readonly="readonly" style="display: none">
                     <br>Periodo: <input type="text" name="periodo" value="${p.periodo}" readonly="readonly">
                     <br>Matéria: <input type="text" name="materia" value="${p.materia}" readonly="readonly">
-                    <br>Data da Postagem: <input type="text" name="data" value="${p.datapostagem}" readonly="readonly">
-                    <br>Pergunta: <textarea id="pergunta${p.id}" name="textopergunta" readonly="">${p.textopergunta}</textarea>
+                    <br>Data da Postagem: <input type="text" name="data" value="${p.dataPostagem}" readonly="readonly">
+                    <br>Pergunta: <textarea id="pergunta${p.id}" name="textopergunta" readonly="">${p.textoPergunta}</textarea>
                     <a onclick="document.getElementById('pergunta${p.id}').removeAttribute('readonly')" href="#pergunta${p.id}">${p.editar}</a>
-                    <br>Autor: <input type="text" name="nome" value="${p.nomeAutor}" readonly="readonly">
+                    <br>Autor: <input type="text" name="nome" value="${p.nomeUsuario}" readonly="readonly">
                     <br><input type="submit" value="${p.editar}" onmouseover="document.getElementById('${p.id}').value = '${p.editar}pergunta'">
                     <input type="submit" value="${p.excluir}" onmouseover="document.getElementById('${p.id}').value = '${p.excluir}pergunta'">
                     <input type="submit" value="Ver Pergunta" onmouseover="document.getElementById('${p.id}').value = 'verperguntaerespostas'">

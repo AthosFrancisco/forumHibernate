@@ -47,6 +47,7 @@ public class LoginController extends HttpServlet {
             saida.forward(request, response);
         } 
         catch (Exception e) {
+            e.printStackTrace();
             request.setAttribute("mensagem", "Login ou senha incorreta");
             RequestDispatcher saida = request.getRequestDispatcher("login.jsp");
             saida.forward(request, response);

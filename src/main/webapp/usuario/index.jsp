@@ -18,7 +18,7 @@
     <body>
         <div class="container">
 
-<a button type="button" class="btn btn-default" href="/forumH/IndexController">Home</a>
+            <a button type="button" class="btn btn-default" href="/forumH/IndexController">Home</a>
             <a button type="button" class="btn btn-default" href="/forumH/UsuarioController?acao=verperguntas">Ver Perguntas</a>
             <a button type="button" class="btn btn-default" href="/forumH/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
             <form>

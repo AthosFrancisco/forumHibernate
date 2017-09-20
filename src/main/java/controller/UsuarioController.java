@@ -5,11 +5,11 @@
  */
 package controller;
 
-import fachada.PerguntaFachada;
-import fachada.RespostaFachada;
+import model.Pergunta;
+import model.Resposta;
 import fachada.UsuarioFachada;
 import java.io.IOException;
-import java.sql.Date;
+import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,22 +45,22 @@ public class UsuarioController extends HttpServlet {
     private void criarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+//        try {
             UsuarioFachada usu = new UsuarioFachada();
             usu.setNome(request.getParameter("nome"));
             usu.setEmail(request.getParameter("email"));
             usu.setSenha(request.getParameter("senha"));
-            usu.setTipousuario("Comum");
+            usu.setTipoUsuario("COMUM");
 
             usuarioFachada.criarUsuario(usu);
 
             LoginController.logar(request, response);
 
-        } catch (Exception e) {
-            request.setAttribute("mensagem", "Email já existe");
-            RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
-            saida.forward(request, response);
-        }
+//        } catch (Exception e) {
+//            request.setAttribute("mensagem", "Email já existe");
+//            RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
+//            saida.forward(request, response);
+//        }
     }
 
     private void alterarUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -73,7 +73,7 @@ public class UsuarioController extends HttpServlet {
             usu.setNome(request.getParameter("nome"));
             usu.setEmail(request.getParameter("email"));
             usu.setSenha(request.getParameter("senha"));
-            usu.setTipousuario(request.getParameter("tipousuario"));
+            usu.setTipoUsuario(request.getParameter("tipousuario"));
 
             usuarioFachada.alterarUsuario(usu);
 
@@ -123,12 +123,8 @@ public class UsuarioController extends HttpServlet {
     private void criarPergunta(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        PerguntaFachada perg = new PerguntaFachada();
+        Pergunta perg = new Pergunta(new Date(), request.getParameter("periodo"), request.getParameter("materia"), request.getParameter("textopergunta"));
         perg.setUsuario(usuarioFachada);
-        perg.setPeriodo(request.getParameter("periodo"));
-        perg.setMateria(request.getParameter("materia"));
-        perg.setDatapostagem(new Date(System.currentTimeMillis()));
-        perg.setTextopergunta(request.getParameter("textopergunta"));
 
         usuarioFachada.criarPergunta(perg);
 
@@ -144,13 +140,8 @@ public class UsuarioController extends HttpServlet {
 
         int idPergunta = Integer.parseInt(request.getParameter("id"));
 
-        PerguntaFachada perg = new PerguntaFachada();
+        Pergunta perg = new Pergunta(new Date(request.getParameter("data")), request.getParameter("periodo"), request.getParameter("mateira"), request.getParameter("textopergunta"));
         perg.setId(idPergunta);
-        perg.setUsuario(usuarioFachada);
-        perg.setPeriodo(request.getParameter("periodo"));
-        perg.setMateria(request.getParameter("mateira"));
-        perg.setDatapostagem(Date.valueOf(request.getParameter("data")));
-        perg.setTextopergunta(request.getParameter("textopergunta"));
 
         usuarioFachada.editarPergunta(perg);
 
@@ -182,11 +173,9 @@ public class UsuarioController extends HttpServlet {
 
         int idPergunta = Integer.parseInt(request.getParameter("idpergunta"));
 
-        RespostaFachada resp = new RespostaFachada();
+        Resposta resp = new Resposta(new Date(), request.getParameter("textoresposta"));
         resp.setUsuario(usuarioFachada);
-        resp.setPergunta(new PerguntaFachada(idPergunta));
-        resp.setDatapostagem(new Date(System.currentTimeMillis()));
-        resp.setTextoresposta(request.getParameter("textoresposta"));
+        resp.setPergunta(new Pergunta(idPergunta));
 
         usuarioFachada.criarResposta(resp);
 
@@ -198,12 +187,10 @@ public class UsuarioController extends HttpServlet {
 
         int idPergunta = Integer.parseInt(request.getParameter("idpergunta"));
 
-        RespostaFachada resp = new RespostaFachada();
+        Resposta resp = new Resposta(new Date(request.getParameter("data")), request.getParameter("textoresposta"));
         resp.setId(Integer.parseInt(request.getParameter("id")));
         resp.setUsuario(usuarioFachada);
-        resp.setPergunta(new PerguntaFachada(idPergunta));
-        resp.setDatapostagem(Date.valueOf(request.getParameter("data")));
-        resp.setTextoresposta(request.getParameter("textoresposta"));
+        resp.setPergunta(new Pergunta(idPergunta));
 
         usuarioFachada.editarResposta(resp);
 
@@ -224,69 +211,22 @@ public class UsuarioController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        usuarioFachada = LoginController.retornaUsuario(request, response);
-
-        String acao = request.getParameter("acao").toUpperCase();
-        System.out.println(acao);
-        System.out.println(usuarioFachada.getTipousuario());
-
-        switch (acao) {
-            case "VERUSUARIOS":
-                verUsuarios(request, response);
-                break;
-            case "CRIARUSUARIO":
-                criarUsuario(request, response);
-                break;
-            case "EDITARUSUARIO":
-                alterarUsuario(request, response);
-                break;
-            case "EXCLUIRUSUARIO":
-                excluirUsuario(request, response);
-                break;
-            case "VERPERGUNTAS":
-                verPerguntas(request, response);
-                break;
-            case "VERPERGUNTASPROPRIAS":
-                verPerguntasProprias(request, response);
-                break;
-            case "CRIARPERGUNTA":
-                criarPergunta(request, response);
-                break;
-            case "EDITARPERGUNTA":
-                alterarPergunta(request, response);
-                break;
-            case "EXCLUIRPERGUNTA":
-                excluirPergunta(request, response);
-                break;
-            case "VERPERGUNTAERESPOSTAS":
-                verPerguntaERespostas(request, response, Integer.parseInt(request.getParameter("id")));
-                break;
-            case "CRIARRESPOSTA":
-                criarResposta(request, response);
-                break;
-            case "EDITARRESPOSTA":
-                alterarResposta(request, response);
-                break;
-            case "EXCLUIRRESPOSTA":
-                excluirResposta(request, response);
-                break;
-            default:
-                System.out.println("opção inválida");
-                response.sendRedirect("index.jsp");
-        }
+        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        processRequest(request, response);
+    }
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
         usuarioFachada = LoginController.retornaUsuario(request, response);
 
-        System.out.println(usuarioFachada.getNome());
-
         String acao = request.getParameter("acao").toUpperCase();
-        System.out.println(acao);
-        System.out.println(usuarioFachada.getTipousuario());
 
         switch (acao) {
             case "VERUSUARIOS":
