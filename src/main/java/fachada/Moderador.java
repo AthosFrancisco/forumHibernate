@@ -28,8 +28,10 @@ public class Moderador extends Comum {
     @Override
     public List<Pergunta> verPerguntas() {
 
+        em.getTransaction().begin();
         List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
-
+        em.close();
+        
         for (int i = 0; i < listaPergunta.size(); i++) {
 
             listaPergunta.get(i).setExcluir("excluir");
@@ -45,9 +47,8 @@ public class Moderador extends Comum {
     @Override
     public void excluirPergunta(int idPergunta) {
         
-        Pergunta p = em.find(Pergunta.class, idPergunta);
-        
         em.getTransaction().begin();
+        Pergunta p = em.find(Pergunta.class, idPergunta);
         em.remove(p);
         em.getTransaction().commit();
         em.close();
@@ -57,8 +58,10 @@ public class Moderador extends Comum {
     @Override
     public List<Resposta> verRespostas(int idPergunta) {
 
+        em.getTransaction().begin();
         Query q = em.createQuery("select r from Resposta r where pergunta = :p");
         q.setParameter("p", new Pergunta(idPergunta));
+        em.close();
         
         List<Resposta> listaResposta = q.getResultList();
         

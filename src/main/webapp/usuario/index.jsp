@@ -18,28 +18,28 @@
     <body>
         <div class="container">
 
-            <a button type="button" class="btn btn-default" href="/forumH/IndexController">Home</a>
-            <a button type="button" class="btn btn-default" href="/forumH/UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button type="button" class="btn btn-default" href="/forumH/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
+            <a button type="button" class="btn btn-default" href="/forumHibernate/IndexController">Home</a>
+            <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verperguntas">Ver Perguntas</a>
+            <a button type="button" class="btn btn-default" href="/forumHibernate/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
             <form>
                 <div class="form-group">
                     <h3>Seja bem vindo ${applicationScope.usuario.nome}!</h3>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="/forumH/usuario/alterarcadastro.jsp">Alterar Cadastro</a>
+                    <a button type="button" class="btn btn-default" href="/forumHibernate/usuario/alterarcadastro.jsp">Alterar Cadastro</a>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="/forumH/usuario/fazerpergunta.jsp">Fazer Pergunta</a>
+                    <a button type="button" class="btn btn-default" href="/forumHibernate/usuario/fazerpergunta.jsp">Fazer Pergunta</a>
                 </div>
 
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="/forumH/UsuarioController?acao=verusuarios">Listar Usuarios</a>
+                    <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verusuarios">Listar Usuarios</a>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="/forumH/UsuarioController?acao=verperguntasproprias">Perguntas Proprias</a>
+                    <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verperguntasproprias">Perguntas Proprias</a>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="/forumH/LoginController">Sair</a>
+                    <a button type="button" class="btn btn-default" href="/forumHibernate/LoginController">Sair</a>
                 </div>
             </form>
 

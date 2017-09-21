@@ -20,17 +20,19 @@ public class CriarUsuario {
     public static UsuarioFachada criar(String login, String senha){
         
         EntityManager em = Conexao.getConexao();
+        
         em.getTransaction().begin();
+        
         Query q = em.createQuery("select u from Usuario u where u.email = :email and u.senha = :senha");
         
         q.setParameter("email", login);
         q.setParameter("senha", senha);
         
         Usuario usu = (Usuario)q.getSingleResult();
-
-        em.close();
         
         String tipoUsuario = usu.getTipoUsuario();
+        
+        em.close();
         
         switch(tipoUsuario.toUpperCase()){
             case "COMUM":

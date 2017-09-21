@@ -44,12 +44,12 @@
                     <body>
                         <div class="container">
 
-                            <a button type="button" class="btn btn-default" href="/forumH/IndexController">Home</a>
-                            <a button type="button" class="btn btn-default" href="/forumH/UsuarioController?acao=verperguntas">Ver Perguntas</a>
-                            <a button type="button" class="btn btn-default" href="/forumH/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/IndexController">Home</a>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verperguntas">Ver Perguntas</a>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
                                 <h1>Fazer Pergunta</h1><br><br>
 
-                                        <form action="/forumH/UsuarioController" method="post">
+                                        <form action="/forumHibernate/UsuarioController" method="post">
                                             <input name="acao" type="text" value="criarpergunta" readonly="readonly" style="display: none">
                                                 <div class="form-group">
                                                     <label>Período:</label><br> 

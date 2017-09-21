@@ -25,8 +25,10 @@ public class Administrador extends Moderador{
     @Override
     public List<UsuarioFachada> todosUsuarios(){
         
+        em.getTransaction().begin();
         List<Usuario> lista = em.createQuery("select u from Usuario u").getResultList();
         List<UsuarioFachada> listaFachada = new ArrayList<>();
+        em.close();
         
         for(Usuario usu: lista){
             

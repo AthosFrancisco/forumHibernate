@@ -58,7 +58,9 @@ public class Comum extends UsuarioFachada {
     @Override
     public List<Pergunta> verPerguntas() {
 
+        em.getTransaction().begin();
         List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
+        em.close();
 
         for (int i = 0; i < listaPergunta.size(); i++) {
 
@@ -74,7 +76,9 @@ public class Comum extends UsuarioFachada {
     @Override
     public List<Pergunta> verPerguntasProprias() {
 
+        em.getTransaction().begin();
         List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
+        em.close();
 
         for (int i = 0; i < listaPergunta.size(); i++) {
 
@@ -109,26 +113,27 @@ public class Comum extends UsuarioFachada {
 
     @Override
     public void excluirPergunta(int idPergunta) {
+        em.getTransaction().begin();
         Pergunta p = em.find(Pergunta.class, idPergunta);
-
+        
         if (getId() == p.getUsuario().getId()) {
-            em.getTransaction().begin();
             em.remove(p);
             em.getTransaction().commit();
-            em.close();
         }
+        em.close();
     }
 
     //Resposta
     @Override
     public List<Resposta> verRespostas(int idPergunta) {
 
+        em.getTransaction().begin();
         Query q = em.createQuery("select r from Resposta r where pergunta = :p");
         q.setParameter("p", new Pergunta(idPergunta));
-        
+
         List<Resposta> listaResposta = q.getResultList();
-        
-        
+        em.close();
+
         for (int i = 0; i < listaResposta.size(); i++) {
 
             if (getId() == listaResposta.get(i).getUsuario().getId()) {
@@ -143,7 +148,7 @@ public class Comum extends UsuarioFachada {
     @Override
     public void criarResposta(Resposta r) {
         if (getId() == r.getUsuario().getId()) {
-            
+
             em.getTransaction().begin();
             em.persist(r);
             em.getTransaction().commit();
@@ -154,7 +159,7 @@ public class Comum extends UsuarioFachada {
     @Override
     public void editarResposta(Resposta r) {
         if (getId() == r.getUsuario().getId()) {
-            
+
             em.getTransaction().begin();
             em.merge(r);
             em.getTransaction().commit();
@@ -164,14 +169,13 @@ public class Comum extends UsuarioFachada {
 
     @Override
     public void excluirResposta(int idResposta) {
+        em.getTransaction().begin();
         Resposta r = em.find(Resposta.class, idResposta);
-                
+
         if (getId() == r.getUsuario().getId()) {
-            
-            em.getTransaction().begin();
             em.remove(r);
             em.getTransaction().commit();
-            em.close();
         }
+        em.close();
     }
 }

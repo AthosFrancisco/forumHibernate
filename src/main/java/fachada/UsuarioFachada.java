@@ -47,7 +47,6 @@ public class UsuarioFachada extends Usuario {
     public List<Pergunta> verPerguntas() {
         
         List<Pergunta> perguntas = em.createQuery("SELECT p FROM Pergunta p").getResultList();
-        
         return perguntas;
     }
 
@@ -57,9 +56,7 @@ public class UsuarioFachada extends Usuario {
     }
 
     public Pergunta verPergunta(int idPergunta) {
-        
         Pergunta p = em.find(Pergunta.class, idPergunta);
-        
         return p;
     }
 
@@ -79,7 +76,6 @@ public class UsuarioFachada extends Usuario {
         q.setParameter("idpergunta", new Pergunta(idPergunta));
         
         List<Resposta> respostas = q.getResultList();
-        
         return respostas;
     }
 
