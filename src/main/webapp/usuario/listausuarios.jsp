@@ -27,16 +27,16 @@
 
             <c:forEach items="${requestScope.listaUsuarios}" var="u">
 
-                <form action="/forumH/UsuarioController" method="post">
+                <form action="/forumHibernate/UsuarioController" method="post">
                     <input name="acao" id="${u.id}" type="text" value="" readonly="readonly" style="display: none">
                     <input name="senha" type="text" value="${u.senha}" readonly="readonly" style="display: none">
                     <br>Id: <input type="text" name="id" value="${u.id}" readonly="readonly">
                     <br>Nome: <input type="text" name="nome" value="${u.nome}" readonly="readonly">
                     <br>Email: <input type="text" name="email" value="${u.email}" readonly="readonly">
                     <br>Tipo Usuário: <input type="text" value="${u.tipoUsuario}" readonly="readonly">
-                    <br><input type="radio" name="tipousuario" value="Comum"> Comum
-                    <input type="radio" name="tipousuario" value="Moderador"> Moderador
-                    <input type="radio" name="tipousuario" value="Administrador"> Administrador
+                    <br><input type="radio" name="tipousuario" value="COMUM"> Comum
+                    <input type="radio" name="tipousuario" value="MODERADOR"> Moderador
+                    <input type="radio" name="tipousuario" value="ADMINISTRADOR"> Administrador
                     <br><input type="submit" value="editar" onmouseover="document.getElementById('${u.id}').value = 'editarusuario'">
                     <input type="submit" value="excluir" onmouseover="document.getElementById('${u.id}').value = 'excluirusuario'">
                 </form>

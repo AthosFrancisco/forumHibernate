@@ -26,6 +26,12 @@ public class Pergunta implements Serializable {
         this.textoPergunta = textoPergunta;
     }
     
+    public Pergunta(String periodo, String materia, String textoPergunta) {
+        this.periodo = periodo;
+        this.materia = materia;
+        this.textoPergunta = textoPergunta;
+    }
+    
     @Transient
     private String excluir = "";
     @Transient
@@ -36,8 +42,11 @@ public class Pergunta implements Serializable {
     @GeneratedValue(generator = "seq_perg", strategy = GenerationType.AUTO)
     private Integer id;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataPostagem;
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAlteracao;
     @Column(nullable = false)
     private String periodo;
     @Column(nullable = false)
@@ -128,6 +137,14 @@ public class Pergunta implements Serializable {
 
     public void setEditar(String editar) {
         this.editar = editar;
+    }
+
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
+    }
+
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
 }

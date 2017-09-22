@@ -9,6 +9,7 @@ import model.Pergunta;
 import model.Resposta;
 import fachada.UsuarioFachada;
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,7 +46,7 @@ public class UsuarioController extends HttpServlet {
     private void criarUsuario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-//        try {
+        try {
             UsuarioFachada usu = new UsuarioFachada();
             usu.setNome(request.getParameter("nome"));
             usu.setEmail(request.getParameter("email"));
@@ -56,11 +57,11 @@ public class UsuarioController extends HttpServlet {
 
             LoginController.logar(request, response);
 
-//        } catch (Exception e) {
-//            request.setAttribute("mensagem", "Email já existe");
-//            RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
-//            saida.forward(request, response);
-//        }
+        } catch (Exception e) {
+            request.setAttribute("mensagem", "Email já existe");
+            RequestDispatcher saida = request.getRequestDispatcher("cadastro.jsp");
+            saida.forward(request, response);
+        }
     }
 
     private void alterarUsuario(HttpServletRequest request, HttpServletResponse response)
@@ -140,7 +141,8 @@ public class UsuarioController extends HttpServlet {
 
         int idPergunta = Integer.parseInt(request.getParameter("id"));
 
-        Pergunta perg = new Pergunta(new Date(request.getParameter("data")), request.getParameter("periodo"), request.getParameter("mateira"), request.getParameter("textopergunta"));
+        Pergunta perg = new Pergunta(request.getParameter("periodo"), request.getParameter("mateira"), request.getParameter("textopergunta"));
+        perg.setDataUltimaAlteracao(new Date());
         perg.setId(idPergunta);
 
         usuarioFachada.editarPergunta(perg);
@@ -186,8 +188,9 @@ public class UsuarioController extends HttpServlet {
             throws ServletException, IOException {
 
         int idPergunta = Integer.parseInt(request.getParameter("idpergunta"));
-
-        Resposta resp = new Resposta(new Date(request.getParameter("data")), request.getParameter("textoresposta"));
+        
+        Resposta resp = new Resposta(request.getParameter("textoresposta"));
+        resp.setDataUltimaAlteracao(new Date());
         resp.setId(Integer.parseInt(request.getParameter("id")));
         resp.setUsuario(usuarioFachada);
         resp.setPergunta(new Pergunta(idPergunta));
@@ -228,6 +231,8 @@ public class UsuarioController extends HttpServlet {
 
         String acao = request.getParameter("acao").toUpperCase();
 
+        System.out.println(acao);
+        
         switch (acao) {
             case "VERUSUARIOS":
                 verUsuarios(request, response);

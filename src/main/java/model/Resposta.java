@@ -13,6 +13,18 @@ import javax.persistence.*;
 @Access(AccessType.FIELD)
 public class Resposta implements Serializable {
 
+    public Resposta() {
+    }
+
+    public Resposta(Date dataPostagem, String textoResposta) {
+        this.dataPostagem = dataPostagem;
+        this.textoResposta = textoResposta;
+    }
+    
+    public Resposta(String textoResposta) {
+        this.textoResposta = textoResposta;
+    }
+    
     @Transient
     private String excluir = "";
     @Transient
@@ -23,8 +35,10 @@ public class Resposta implements Serializable {
     @GeneratedValue(generator = "seq_resp", strategy = GenerationType.AUTO)
     private Integer id;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataPostagem;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataUltimaAlteracao;
     @Column(nullable = false)
     private String textoResposta;
     @Transient
@@ -35,14 +49,6 @@ public class Resposta implements Serializable {
     
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Usuario usuario;
-
-    public Resposta() {
-    }
-
-    public Resposta(Date dataPostagem, String textoResposta) {
-        this.dataPostagem = dataPostagem;
-        this.textoResposta = textoResposta;
-    }
 
     public Integer getId() {
         return id;
@@ -103,6 +109,14 @@ public class Resposta implements Serializable {
 
     public void setEditar(String editar) {
         this.editar = editar;
+    }
+
+    public Date getDataUltimaAlteracao() {
+        return dataUltimaAlteracao;
+    }
+
+    public void setDataUltimaAlteracao(Date dataUltimaAlteracao) {
+        this.dataUltimaAlteracao = dataUltimaAlteracao;
     }
 
 }

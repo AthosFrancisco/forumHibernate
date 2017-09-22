@@ -5,9 +5,9 @@
  */
 package fachada;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Query;
+import model.Conexao;
 import model.Pergunta;
 import model.Resposta;
 import model.Usuario;
@@ -28,9 +28,8 @@ public class Moderador extends Comum {
     @Override
     public List<Pergunta> verPerguntas() {
 
-        em.getTransaction().begin();
+        em = Conexao.getConexao();
         List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
-        em.close();
         
         for (int i = 0; i < listaPergunta.size(); i++) {
 
@@ -47,6 +46,7 @@ public class Moderador extends Comum {
     @Override
     public void excluirPergunta(int idPergunta) {
         
+        em = Conexao.getConexao();
         em.getTransaction().begin();
         Pergunta p = em.find(Pergunta.class, idPergunta);
         em.remove(p);
@@ -58,10 +58,9 @@ public class Moderador extends Comum {
     @Override
     public List<Resposta> verRespostas(int idPergunta) {
 
-        em.getTransaction().begin();
+        em = Conexao.getConexao();
         Query q = em.createQuery("select r from Resposta r where pergunta = :p");
         q.setParameter("p", new Pergunta(idPergunta));
-        em.close();
         
         List<Resposta> listaResposta = q.getResultList();
         

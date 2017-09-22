@@ -39,6 +39,7 @@
                 <p>Periodo: ${requestScope.pergunta.periodo}</p>
                 <p>Materia: ${requestScope.pergunta.materia}</p>
                 <p>Data da postagem: ${requestScope.pergunta.dataPostagem}</p>
+                <p>Data da Ultima Alteração: ${requestScope.pergunta.dataUltimaAlteracao}</p>
                 <p>Pergunta: ${requestScope.pergunta.textoPergunta}</p>
             </div>
 
@@ -51,7 +52,8 @@
                     <input type="text" name="id" value="${r.id}" readonly="readonly" style="display: none">
                     <input type="text" name="idusuario" value="${r.usuario.id}" readonly="readonly" style="display: none">
                     <input type="text" name="idpergunta" value="${r.pergunta.id}" readonly="readonly" style="display: none">
-                    <input type="text" name="data" value="${r.dataPostagem}" readonly="readonly">
+                    <input type="text" value="${r.dataPostagem}" readonly="readonly">
+                    <input type="text" value="${r.dataUltimaAlteracao}" readonly="readonly">
                     <input type="text" name="nome" value="${r.nomeUsuario}" readonly="readonly">
                     <textarea id="resposta${r.id}" name="textoresposta" readonly="">${r.textoResposta}</textarea>
                     <a onclick="document.getElementById('resposta${r.id}').removeAttribute('readonly')" href="#resposta${r.id}">${r.editar}</a>

@@ -20,12 +20,11 @@ import model.Resposta;
 public class UsuarioFachada extends Usuario {
     
     
-    protected static EntityManager em = Conexao.getConexao();
-    
-    ;
+    protected static EntityManager em;
     
     public void criarUsuario(UsuarioFachada usu) {
         
+        em = Conexao.getConexao();
         em.getTransaction().begin();
         em.persist(new Usuario(usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario()));
         em.getTransaction().commit();
@@ -46,6 +45,7 @@ public class UsuarioFachada extends Usuario {
     //Pergunta
     public List<Pergunta> verPerguntas() {
         
+        em = Conexao.getConexao();
         List<Pergunta> perguntas = em.createQuery("SELECT p FROM Pergunta p").getResultList();
         return perguntas;
     }
@@ -56,6 +56,7 @@ public class UsuarioFachada extends Usuario {
     }
 
     public Pergunta verPergunta(int idPergunta) {
+        em = Conexao.getConexao();
         Pergunta p = em.find(Pergunta.class, idPergunta);
         return p;
     }
@@ -72,6 +73,7 @@ public class UsuarioFachada extends Usuario {
     //Resposta
     public List<Resposta> verRespostas(int idPergunta) {
         
+        em = Conexao.getConexao();
         Query q = em.createQuery("SELECT r FROM Resposta r WHERE pergunta = :idpergunta");
         q.setParameter("idpergunta", new Pergunta(idPergunta));
         

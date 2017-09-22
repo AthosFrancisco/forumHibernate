@@ -8,6 +8,7 @@ package fachada;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Conexao;
 import model.Usuario;
 
 /**
@@ -24,11 +25,10 @@ public class Administrador extends Moderador{
     
     @Override
     public List<UsuarioFachada> todosUsuarios(){
-        
-        em.getTransaction().begin();
+
+        em = Conexao.getConexao();
         List<Usuario> lista = em.createQuery("select u from Usuario u").getResultList();
         List<UsuarioFachada> listaFachada = new ArrayList<>();
-        em.close();
         
         for(Usuario usu: lista){
             
@@ -43,6 +43,7 @@ public class Administrador extends Moderador{
             
             Usuario u = new Usuario(usu.getId(), usu.getNome(), usu.getEmail(), usu.getSenha(), usu.getTipoUsuario());
             
+            em = Conexao.getConexao();
             em.getTransaction().begin();
             em.merge(u);
             em.getTransaction().commit();
@@ -52,6 +53,7 @@ public class Administrador extends Moderador{
     @Override
     public void excluirUsuario(int idUsuario) {
         
+        em = Conexao.getConexao();
         em.getTransaction().begin();
         
         Usuario u = em.find(Usuario.class, idUsuario);

@@ -21,8 +21,6 @@ public class CriarUsuario {
         
         EntityManager em = Conexao.getConexao();
         
-        em.getTransaction().begin();
-        
         Query q = em.createQuery("select u from Usuario u where u.email = :email and u.senha = :senha");
         
         q.setParameter("email", login);
@@ -31,8 +29,6 @@ public class CriarUsuario {
         Usuario usu = (Usuario)q.getSingleResult();
         
         String tipoUsuario = usu.getTipoUsuario();
-        
-        em.close();
         
         switch(tipoUsuario.toUpperCase()){
             case "COMUM":
