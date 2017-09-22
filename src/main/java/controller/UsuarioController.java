@@ -9,7 +9,6 @@ import model.Pergunta;
 import model.Resposta;
 import fachada.UsuarioFachada;
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

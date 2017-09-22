@@ -107,6 +107,11 @@ public class Comum extends UsuarioFachada {
 
             em = Conexao.getConexao();
             em.getTransaction().begin();
+            
+            Pergunta perg = em.find(Pergunta.class, p.getId());
+            perg.setTextoPergunta(p.getTextoPergunta());
+            perg.setDataUltimaAlteracao(p.getDataUltimaAlteracao());
+            
             em.merge(p);
             em.getTransaction().commit();
             em.close();
@@ -164,7 +169,12 @@ public class Comum extends UsuarioFachada {
 
             em = Conexao.getConexao();
             em.getTransaction().begin();
-            em.merge(r);
+            
+            Resposta resp = em.find(Resposta.class, r.getId());
+            resp.setTextoResposta(r.getTextoResposta());
+            resp.setDataUltimaAlteracao(r.getDataUltimaAlteracao());
+            
+            em.merge(resp);
             em.getTransaction().commit();
             em.close();
         }
