@@ -19,6 +19,11 @@ import model.Resposta;
  */
 public class UsuarioFachada extends Usuario {
     
+    public UsuarioFachada(){}
+    
+    public UsuarioFachada(String tipoUsuario){
+        setTipoUsuario(tipoUsuario);
+    }
     
     protected static EntityManager em;
     

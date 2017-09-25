@@ -39,15 +39,14 @@
                             }
                         }
                     </script>
-                    <script type="text/javascript" src="forumHibernate/js/chamaLogin.js"></script>
                     <title>Fazer Pergunta</title>
                     </head>
                     <body>
                         <div class="container">
 
-            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
-            <a button type="button" class="btn btn-default" href="forumHibernate/UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button id="link" type="button" class="btn btn-default"></a>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/IndexController">Home</a>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verperguntas">Ver Perguntas</a>
+                            <a button type="button" class="btn btn-default" href="/forumHibernate/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
                                 <h1>Fazer Pergunta</h1><br><br>
 
                                         <form action="/forumHibernate/UsuarioController" method="post">

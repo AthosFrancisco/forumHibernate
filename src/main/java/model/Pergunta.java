@@ -32,6 +32,20 @@ public class Pergunta implements Serializable {
         this.textoPergunta = textoPergunta;
     }
     
+    @Override
+    public String toString(){
+        String a = "";
+        
+        a += "id: "+id;
+        a += "dataPostagem: "+dataPostagem;
+        a += "dataUltimaAlteracao: "+dataUltimaAlteracao;
+        a += "periodo: "+periodo;
+        a += "materia: "+materia;
+        a += "textoPergunta: "+textoPergunta;
+        a += "usuario: "+usuario;
+        return null;
+    }
+    
     @Transient
     private String excluir = "";
     @Transient

@@ -140,7 +140,7 @@ public class UsuarioController extends HttpServlet {
 
         int idPergunta = Integer.parseInt(request.getParameter("id"));
 
-        Pergunta perg = new Pergunta(request.getParameter("periodo"), request.getParameter("mateira"), request.getParameter("textopergunta"));
+        Pergunta perg = new Pergunta(request.getParameter("periodo"), request.getParameter("materia"), request.getParameter("textopergunta"));
         perg.setDataUltimaAlteracao(new Date());
         perg.setId(idPergunta);
 

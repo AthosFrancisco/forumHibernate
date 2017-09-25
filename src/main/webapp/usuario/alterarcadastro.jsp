@@ -14,35 +14,36 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../js/chamaLogin.js"></script>
     </head>
     <body>
         <div class="container">
-            <a button type="button" class="btn btn-default" href="/forumHibernate/IndexController">Home</a>
-            <a button type="button" class="btn btn-default" href="/forumHibernate/UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button type="button" class="btn btn-default" href="/forumHibernate/${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a><br>
+            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
+            <a button type="button" class="btn btn-default" href="../UsuarioController?acao=verperguntas">Ver Perguntas</a>
+            <a button id="link" type="button" class="btn btn-default"></a>
 
             <h2>Alteração de Cadastro</h2>
 
             <form action="/forumHibernate/UsuarioController" method="post">
-                <input name="acao" id ="${applicationScope.usuario.id}" value="" readonly="readonly" style="display: none">
-                <input type="text" name="id" readonly="readonly" value="${applicationScope.usuario.id}" style="display: none">
+                <input name="acao" id ="${sessionScope.usuario.id}" value="" readonly="readonly" style="display: none">
+                <input type="text" name="id" readonly="readonly" value="${sessionScope.usuario.id}" style="display: none">
 
                 <div class="form-group">
                     <label for="nome">Nome:</label>
-                    <input id="nome" value="${applicationScope.usuario.nome}" type="text" class="form-control" placeholder=" Digite seu nome completo" name="nome">
+                    <input id="nome" value="${sessionScope.usuario.nome}" type="text" class="form-control" placeholder=" Digite seu nome completo" name="nome">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input id="email" value="${applicationScope.usuario.email}"  type="email" class="form-control" placeholder="Digite seu email" name="email">
+                    <input id="email" value="${sessionScope.usuario.email}"  type="email" class="form-control" placeholder="Digite seu email" name="email">
                 </div>
                 <div class="form-group">
                     <label for="senha">Senha:</label>
-                    <input id="senha" value="${applicationScope.usuario.senha}" type="password" class="form-control" placeholder="Digite sua senha" name="senha">
+                    <input id="senha" value="${sessionScope.usuario.senha}" type="password" class="form-control" placeholder="Digite sua senha" name="senha">
                 </div>
-                <input type="text" name="tipousuario" readonly="readonly" value="${applicationScope.usuario.tipoUsuario}" style="display: none">
+                <input type="text" name="tipousuario" readonly="readonly" value="${sessionScope.usuario.tipoUsuario}" style="display: none">
 
-                <input type="submit" class="btn btn-default" value="Salvar" onmouseover="document.getElementById('${applicationScope.usuario.id}').value = 'editarusuario'">
-                <input type="submit" class="btn btn-default" value="Excluir" onmouseover="document.getElementById('${applicationScope.usuario.id}').value = 'excluirusuario'">
+                <input type="submit" class="btn btn-default" value="Salvar" onmouseover="document.getElementById('${sessionScope.usuario.id}').value = 'editarusuario'">
+                <input type="submit" class="btn btn-default" value="Excluir" onmouseover="document.getElementById('${sessionScope.usuario.id}').value = 'excluirusuario'">
             </form>
         </div>
 

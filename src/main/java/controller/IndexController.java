@@ -7,12 +7,14 @@ package controller;
 
 import fachada.UsuarioFachada;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
 
 /**
  *
@@ -23,33 +25,33 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        ServletContext contexto = request.getServletContext();
-        UsuarioFachada usuarioFachada = (UsuarioFachada) request.getSession(false).getAttribute("usuario");
 
-        if (request.getSession(false) == null || usuarioFachada == null) {
+        List<String> textos = new ArrayList<String>();
 
-            usuarioFachada = new UsuarioFachada();
-            contexto.setAttribute("link", "login");
-            contexto.setAttribute("loginOuUsuario", "Login");
-            System.out.println("primeiro se");
-            
-        } /*else if(usuarioFachada.getTipousuario().equals("Deslogado")){
+        response.setContentType("text/plain;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
 
-            contexto.setAttribute("link", "login");
-            contexto.setAttribute("loginOuUsuario", "Login");
-            System.out.println("segundo se");
-        }*/
-        else{
-            contexto.setAttribute("link", "usuario/index");
-            contexto.setAttribute("loginOuUsuario", "Página do Usuário");
-            System.out.println("terceiro se");
+            UsuarioFachada usuarioFachada = (UsuarioFachada) request.getSession(false).getAttribute("usuario");
+
+            if (request.getSession(false) == null || usuarioFachada == null) {
+
+                textos.add("login.jsp");
+                textos.add("Login");
+
+            } else {
+                if (usuarioFachada.getTipoUsuario() == null) {
+                    textos.add("../login.jsp");
+                    textos.add("Login");
+                } else {
+                    textos.add("index.jsp");
+                    textos.add("Página Usuário");
+                }
+            }
+
+            JSONArray array = new JSONArray(textos);
+
+            out.print(array.toString());
         }
-        
-        contexto.setAttribute("usuario", usuarioFachada);
-        
-        RequestDispatcher saida = request.getRequestDispatcher("index.jsp");
-        saida.forward(request, response);
     }
 
 }

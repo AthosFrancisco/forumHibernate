@@ -47,7 +47,7 @@ public class Comum extends UsuarioFachada {
         if (getId() == idUsuario) {
             em = Conexao.getConexao();
             em.getTransaction().begin();
-            
+
             Usuario u = em.find(Usuario.class, idUsuario);
 
             em.remove(u);
@@ -103,26 +103,28 @@ public class Comum extends UsuarioFachada {
 
     @Override
     public void editarPergunta(Pergunta p) {
-        if (getId() == p.getUsuario().getId()) {
 
-            em = Conexao.getConexao();
-            em.getTransaction().begin();
-            
-            Pergunta perg = em.find(Pergunta.class, p.getId());
+        em = Conexao.getConexao();
+        em.getTransaction().begin();
+
+        Pergunta perg = em.find(Pergunta.class, p.getId());
+
+        if (getId() == perg.getUsuario().getId()) {
+
             perg.setTextoPergunta(p.getTextoPergunta());
             perg.setDataUltimaAlteracao(p.getDataUltimaAlteracao());
-            
-            em.merge(p);
+
+            em.merge(perg);
             em.getTransaction().commit();
-            em.close();
         }
+        em.close();
     }
 
     @Override
     public void excluirPergunta(int idPergunta) {
         em = Conexao.getConexao();
         Pergunta p = em.find(Pergunta.class, idPergunta);
-        
+
         if (getId() == p.getUsuario().getId()) {
             em.remove(p);
             em.getTransaction().commit();
@@ -133,7 +135,7 @@ public class Comum extends UsuarioFachada {
     //Resposta
     @Override
     public List<Resposta> verRespostas(int idPergunta) {
-        
+
         em = Conexao.getConexao();
         Query q = em.createQuery("select r from Resposta r where pergunta = :p");
         q.setParameter("p", new Pergunta(idPergunta));
@@ -169,11 +171,11 @@ public class Comum extends UsuarioFachada {
 
             em = Conexao.getConexao();
             em.getTransaction().begin();
-            
+
             Resposta resp = em.find(Resposta.class, r.getId());
             resp.setTextoResposta(r.getTextoResposta());
             resp.setDataUltimaAlteracao(r.getDataUltimaAlteracao());
-            
+
             em.merge(resp);
             em.getTransaction().commit();
             em.close();
@@ -183,7 +185,7 @@ public class Comum extends UsuarioFachada {
     @Override
     public void excluirResposta(int idResposta) {
         em = Conexao.getConexao();
-        
+
         Resposta r = em.find(Resposta.class, idResposta);
 
         if (getId() == r.getUsuario().getId()) {

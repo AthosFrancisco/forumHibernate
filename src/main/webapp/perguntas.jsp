@@ -13,14 +13,15 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/chamaLogin.js"></script>
         <title>Perguntas</title>
     </head>
     <body>
 
         <div class="container">
-            <a button type="button" class="btn btn-default" href="IndexController">Home</a>
+            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
             <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button type="button" class="btn btn-default" href="${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a>
+            <a button id="link" type="button" class="btn btn-default"></a>
 
             <h2>Perguntas</h2><br><br>
             <c:forEach items="${requestScope.listaperguntas}" var="p">

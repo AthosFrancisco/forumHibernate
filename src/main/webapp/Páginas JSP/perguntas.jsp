@@ -1,6 +1,6 @@
 <%-- 
-    Document   : perguntasproprias
-    Created on : 16/06/2017, 15:53:23
+    Document   : perguntas
+    Created on : 16/06/2017, 15:48:41
     Author     : Aluno
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -13,25 +13,23 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="../js/chamaLogin.js"></script>
-        <title>Minhas Perguntas</title>
+        <title>Perguntas</title>
     </head>
     <body>
+
         <div class="container">
-
-            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
+            <a button type="button" class="btn btn-default" href="IndexController">Home</a>
             <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button id="link" type="button" class="btn btn-default"></a>
+            <a button type="button" class="btn btn-default" href="${applicationScope.link}.jsp">${applicationScope.loginOuUsuario}</a>
 
-            <h1>Minhas Perguntas</h1>
-
+            <h2>Perguntas</h2><br><br>
             <c:forEach items="${requestScope.listaperguntas}" var="p">
 
                 <form action="UsuarioController" method="post">
                     <input name="acao" id="${p.id}" type="text" value="" readonly="readonly" style="display: none">
                     <br><input type="text" name="id" value="${p.id}" readonly="readonly" style="display: none">
                     <br><input type="text" name="idusuario" value="${p.usuario.id}" readonly="readonly" style="display: none">
-                    <br>Período: <input type="text" name="periodo" value="${p.periodo}" readonly="readonly">
+                    <br>Periodo: <input type="text" name="periodo" value="${p.periodo}" readonly="readonly">
                     <br>Matéria: <input type="text" name="materia" value="${p.materia}" readonly="readonly">
                     <br>Data da Postagem: <input type="text" value="${p.dataPostagem}" readonly="readonly">
                     <br>Data da Ultima Alteração: <input type="text" value="${p.dataUltimaAlteracao}" readonly="readonly">
