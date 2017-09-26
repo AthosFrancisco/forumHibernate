@@ -14,7 +14,6 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="../js/chamaLogin.js"></script>
-        <script type="text/javascript" src="js/chamaLogin.js"></script>
         <title>Index</title>
     </head>
     <body>
@@ -38,10 +37,10 @@
                     <a button type="button" class="btn btn-default" href="../UsuarioController?acao=verusuarios">Listar Usuarios</a>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="../UsuarioController?acao=verperguntasproprias">Perguntas Proprias</a>
+                    <a button type="button" class="btn btn-default" href="perguntasproprias.jsp">Perguntas Proprias</a>
                 </div>
                 <div class="form-group">
-                    <a button type="button" class="btn btn-default" href="LoginController">Sair</a>
+                    <a button type="button" class="btn btn-default" href="../LoginController">Sair</a>
                 </div>
             </form>
 

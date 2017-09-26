@@ -26,7 +26,7 @@ public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<String> textos = new ArrayList<String>();
+        List<String> textos = new ArrayList<>();
 
         response.setContentType("text/plain;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
@@ -39,8 +39,8 @@ public class IndexController extends HttpServlet {
                 textos.add("Login");
 
             } else {
-                if (usuarioFachada.getTipoUsuario() == null) {
-                    textos.add("../login.jsp");
+                if (usuarioFachada.getId() == null) {
+                    textos.add("login.jsp");
                     textos.add("Login");
                 } else {
                     textos.add("index.jsp");

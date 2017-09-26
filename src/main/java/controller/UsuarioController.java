@@ -9,12 +9,16 @@ import model.Pergunta;
 import model.Resposta;
 import fachada.UsuarioFachada;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
@@ -103,20 +107,26 @@ public class UsuarioController extends HttpServlet {
     private void verPerguntas(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("listaperguntas", usuarioFachada.verPerguntas());
+//        request.setAttribute("listaperguntas", usuarioFachada.verPerguntas());
+//        RequestDispatcher saida = request.getRequestDispatcher("perguntas.jsp");
+//        saida.forward(request, response);
+        JSONObject json = new JSONObject(usuarioFachada.verPerguntas());
 
-        RequestDispatcher saida = request.getRequestDispatcher("perguntas.jsp");
-        saida.forward(request, response);
-
+        response.getWriter().print(json.toString());
     }
 
     private void verPerguntasProprias(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("listaperguntas", usuarioFachada.verPerguntasProprias());
+//        request.setAttribute("listaperguntas", usuarioFachada.verPerguntasProprias());
+//
+//        RequestDispatcher saida = request.getRequestDispatcher("usuario/perguntasproprias.jsp");
+//        saida.forward(request, response);
 
-        RequestDispatcher saida = request.getRequestDispatcher("usuario/perguntasproprias.jsp");
-        saida.forward(request, response);
+        JSONArray array = new JSONArray(usuarioFachada.verPerguntasProprias());
+        
+        response.setContentType("text/plain;charset=UTF-8");
+        response.getWriter().print(array.toString());
     }
 
     //tentar recuperar pergunta criada e abrir diretamente a página com esta pergunta
@@ -187,7 +197,7 @@ public class UsuarioController extends HttpServlet {
             throws ServletException, IOException {
 
         int idPergunta = Integer.parseInt(request.getParameter("idpergunta"));
-        
+
         Resposta resp = new Resposta(request.getParameter("textoresposta"));
         resp.setDataUltimaAlteracao(new Date());
         resp.setId(Integer.parseInt(request.getParameter("id")));
@@ -222,16 +232,16 @@ public class UsuarioController extends HttpServlet {
 
         processRequest(request, response);
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         usuarioFachada = LoginController.retornaUsuario(request, response);
 
         String acao = request.getParameter("acao").toUpperCase();
 
         System.out.println(acao);
-        
+
         switch (acao) {
             case "VERUSUARIOS":
                 verUsuarios(request, response);

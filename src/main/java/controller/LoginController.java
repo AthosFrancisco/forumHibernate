@@ -37,8 +37,7 @@ public class LoginController extends HttpServlet {
 
             sessao.setAttribute("usuario", usuarioFachada);
 
-            RequestDispatcher saida = request.getRequestDispatcher("usuario/index.jsp");
-            saida.forward(request, response);
+            response.sendRedirect("usuario/index.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -59,8 +58,7 @@ public class LoginController extends HttpServlet {
 
         sessao.setAttribute("usuario", new UsuarioFachada());
 
-        RequestDispatcher saida = request.getRequestDispatcher("index.jsp");
-        saida.forward(request, response);
+        response.sendRedirect("index.jsp");
     }
 
 
