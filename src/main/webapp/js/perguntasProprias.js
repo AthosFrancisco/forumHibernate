@@ -18,7 +18,7 @@ function carregarPerguntas() {
 
                 texto += "<form action=\"../UsuarioController\" method=\"post\">";
                 texto += "<input name=\"acao\" id=\"" + resposta[a].id + "\" type=\"text\" value=\"\" readonly=\"readonly\" style=\"display: none\">";
-                texto += "<input type=\"text\" name=\"idusuario\" value=\"" + resposta[a].id + "\" readonly=\"readonly\" style=\"display: none\">";
+                texto += "<input type=\"text\" name=\"id\" value=\"" + resposta[a].id + "\" readonly=\"readonly\" style=\"display: none\">";
                 texto += "<label for=\"periodo\">Período:</label><br>";
                 texto += "<input type=\"text\" name=\"periodo\" value=\"" + resposta[a].periodo + "\" readonly=\"readonly\"><br>";
                 texto += "<label for=\"materia\">Matéria:</label><br>";
