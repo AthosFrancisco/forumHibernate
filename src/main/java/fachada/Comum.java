@@ -77,11 +77,9 @@ public class Comum extends UsuarioFachada {
     @Override
     public List<Pergunta> verPerguntasProprias() {
 
-        //em = Conexao.getConexao();
-        //List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
+        em = Conexao.getConexao();
+        List<Pergunta> listaPergunta = em.createQuery("select p from Pergunta p").getResultList();
 
-        List<Pergunta> listaPergunta = this.getPerguntas();
-        
         for (int i = 0; i < listaPergunta.size(); i++) {
 
             listaPergunta.get(i).setEditar("editar");
