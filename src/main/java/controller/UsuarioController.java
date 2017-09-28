@@ -5,11 +5,13 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import model.Pergunta;
 import model.Resposta;
 import fachada.UsuarioFachada;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -123,7 +125,12 @@ public class UsuarioController extends HttpServlet {
 //        RequestDispatcher saida = request.getRequestDispatcher("usuario/perguntasproprias.jsp");
 //        saida.forward(request, response);
 
-        JSONArray array = new JSONArray(usuarioFachada.verPerguntasProprias());
+        List<Pergunta> lista = usuarioFachada.verPerguntasProprias();       
+        JSONArray array = new JSONArray();
+        
+        for(Pergunta p:lista){
+            array.put(p.getJSONObject());
+        }
         
         response.setContentType("text/plain;charset=UTF-8");
         response.getWriter().print(array.toString());

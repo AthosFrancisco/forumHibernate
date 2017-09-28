@@ -10,7 +10,6 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--<script type="text/javascript" src="../js/chamaLogin.js"></script>-->
         <script type="text/javascript" src="../js/perguntasProprias.js"></script>
         <title>Minhas Perguntas</title>
     </head>

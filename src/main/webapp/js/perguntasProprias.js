@@ -10,22 +10,26 @@ function carregarPerguntas() {
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
-            alert(xhr.responseText);
             resposta = JSON.parse(xhr.responseText);
             var texto = "";
             
             alert(texto);
             for (var a = 0; a < resposta.length; a++) {
 
-                texto += "<form action=\"UsuarioController\" method=\"post\">";
+                texto += "<form action=\"../UsuarioController\" method=\"post\">";
                 texto += "<input name=\"acao\" id=\"" + resposta[a].id + "\" type=\"text\" value=\"\" readonly=\"readonly\" style=\"display: none\">";
                 texto += "<input type=\"text\" name=\"idusuario\" value=\"" + resposta[a].id + "\" readonly=\"readonly\" style=\"display: none\">";
-                texto += "Período: <input type=\"text\" name=\"periodo\" value=\"" + resposta[a].periodo + "\" readonly=\"readonly\">";
-                texto += "Matéria: <input type=\"text\" name=\"materia\" value=\"" + resposta[a].materia + "\" readonly=\"readonly\">";
-                texto += "Data da Postagem: <input type=\"text\" value=\"" + resposta[a].dataPostagem + "\" readonly=\"readonly\">";
-                texto += "Pergunta: <textarea id=\"" + resposta[a].id + "\" name=\"textopergunta\" readonly=\"\">" + resposta[a].textoPergunta+ "</textarea>";
-                texto += "<a onclick=\"document.getElementById('" + resposta[a].id + "').removeAttribute('readonly')\" href=\"#pergunta" + resposta[a].id + "\">${p.editar}</a>";
-                texto += "Autor: <input type=\"text\" name=\"nome\" value=\"" + resposta[a].nomeUsuario + "\" readonly=\"readonly\">";
+                texto += "<label for=\"periodo\">Período:</label>";
+                texto += "<input type=\"text\" name=\"periodo\" value=\"" + resposta[a].periodo + "\" readonly=\"readonly\">";
+                texto += "<label for=\"materia\">Matéria:</label>";
+                texto += "<input type=\"text\" name=\"materia\" value=\"" + resposta[a].materia + "\" readonly=\"readonly\">";
+                texto += "<label for=\"datapostagem\">Data da Postagem:</label>";
+                texto += "<input name=\"datapostagem\"type=\"text\" value=\"" + resposta[a].dataPostagem + "\" readonly=\"readonly\">";
+                texto += "<label for=\"textopergunta\">Pergunta:</label>";
+                texto += "<textarea id=\"" + resposta[a].id + "\" name=\"textopergunta\" readonly=\"\">" + resposta[a].textoPergunta+ "</textarea>";
+                texto += "<a onclick=\"document.getElementById('" + resposta[a].id + "').removeAttribute('readonly')\" href=\"#pergunta" + resposta[a].id + "\">"+resposta[a].editar+"</a>";
+                texto += "<label for=\"nome\">Autor:</label>";
+                texto += "<input type=\"text\" name=\"nome\" value=\"" + resposta[a].nomeUsuario + "\" readonly=\"readonly\"><br>";
                 texto += "<input type=\"submit\" value=\"" + resposta[a].editar + "\" onmouseover=\"document.getElementById('" + resposta[a].id + "').value = '" + resposta[a].editar + "pergunta'\">";
                 texto += "<input type=\"submit\" value=\"" + resposta[a].excluir + "\" onmouseover=\"document.getElementById('" + resposta[a].id + "').value = '" + resposta[a].excluir + "pergunta'\">";
                 texto += "<input type=\"submit\" value=\"Ver Pergunta\" onmouseover=\"document.getElementById('" + resposta[a].id + "').value = 'verperguntaerespostas'\">";
@@ -35,6 +39,11 @@ function carregarPerguntas() {
             perguntas.innerHTML = texto;
         }
     };
+}
+
+function init(){
+    
+    
 }
 
 onload = carregarPerguntas;

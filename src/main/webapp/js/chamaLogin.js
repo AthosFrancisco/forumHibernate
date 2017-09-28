@@ -1,7 +1,7 @@
 var xhr = new XMLHttpRequest();
 
-onload = function () {
-
+function init(){
+    
     var tagLink = document.getElementById("link");
     var json;
 
@@ -27,8 +27,6 @@ onload = function () {
         }
         tagLink.innerHTML = json[1];
     }
+}
 
-    
-
-
-};
+onload = init;
