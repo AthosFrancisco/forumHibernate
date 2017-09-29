@@ -20,7 +20,7 @@
     <body>
         <div class="container">
             <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
-            <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
+            <a button type="button" class="btn btn-default" href="perguntas.jsp">Ver Perguntas</a>
             <a button id="link" type="button" class="btn btn-default"></a>
 
             <div class="alert alert-success alert-dismissable">

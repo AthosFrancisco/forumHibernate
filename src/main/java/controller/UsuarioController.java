@@ -112,9 +112,15 @@ public class UsuarioController extends HttpServlet {
 //        request.setAttribute("listaperguntas", usuarioFachada.verPerguntas());
 //        RequestDispatcher saida = request.getRequestDispatcher("perguntas.jsp");
 //        saida.forward(request, response);
-        JSONObject json = new JSONObject(usuarioFachada.verPerguntas());
+        List<Pergunta> lista = usuarioFachada.verPerguntas();
+        JSONArray array = new JSONArray();
 
-        response.getWriter().print(json.toString());
+        for (Pergunta p : lista) {
+            array.put(p.getJSONObject());
+        }
+
+        response.setContentType("text/plain;charset=UTF-8");
+        response.getWriter().print(array.toString());
     }
 
     private void verPerguntasProprias(HttpServletRequest request, HttpServletResponse response)
@@ -124,14 +130,13 @@ public class UsuarioController extends HttpServlet {
 //
 //        RequestDispatcher saida = request.getRequestDispatcher("usuario/perguntasproprias.jsp");
 //        saida.forward(request, response);
-
-        List<Pergunta> lista = usuarioFachada.verPerguntasProprias();       
+        List<Pergunta> lista = usuarioFachada.verPerguntasProprias();
         JSONArray array = new JSONArray();
-        
-        for(Pergunta p:lista){
+
+        for (Pergunta p : lista) {
             array.put(p.getJSONObject());
         }
-        
+
         response.setContentType("text/plain;charset=UTF-8");
         response.getWriter().print(array.toString());
     }

@@ -10,39 +10,19 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/chamaLogin.js"></script>
+        <script type="text/javascript" src="js/perguntas.js"></script>
         <title>Perguntas</title>
     </head>
     <body>
 
-        <div class="container">
-            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
-            <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button id="link" type="button" class="btn btn-default"></a>
+        <a type="button" href="index.jsp">Home</a>
+        <a type="button" href="perguntas.jsp">Ver Perguntas</a>
+        <a id="link" type="button"></a>
 
-            <h2>Perguntas</h2><br><br>
-            <c:forEach items="${requestScope.listaperguntas}" var="p">
+        <h1>Perguntas</h1><br><br>
 
-                <form action="UsuarioController" method="post">
-                    <input name="acao" id="${p.id}" type="text" value="" readonly="readonly" style="display: none">
-                    <br><input type="text" name="id" value="${p.id}" readonly="readonly" style="display: none">
-                    <br><input type="text" name="idusuario" value="${p.usuario.id}" readonly="readonly" style="display: none">
-                    <br>Periodo: <input type="text" name="periodo" value="${p.periodo}" readonly="readonly">
-                    <br>Matéria: <input type="text" name="materia" value="${p.materia}" readonly="readonly">
-                    <br>Data da Postagem: <input type="text" value="${p.dataPostagem}" readonly="readonly">
-                    <br>Data da Ultima Alteração: <input type="text" value="${p.dataUltimaAlteracao}" readonly="readonly">
-                    <br>Pergunta: <textarea id="pergunta${p.id}" name="textopergunta" readonly="">${p.textoPergunta}</textarea>
-                    <a onclick="document.getElementById('pergunta${p.id}').removeAttribute('readonly')" href="#pergunta${p.id}">${p.editar}</a>
-                    <br>Autor: <input type="text" name="nome" value="${p.nomeUsuario}" readonly="readonly">
-                    <br><input type="submit" value="${p.editar}" onmouseover="document.getElementById('${p.id}').value = '${p.editar}pergunta'">
-                    <input type="submit" value="${p.excluir}" onmouseover="document.getElementById('${p.id}').value = '${p.excluir}pergunta'">
-                    <input type="submit" value="Ver Pergunta" onmouseover="document.getElementById('${p.id}').value = 'verperguntaerespostas'">
-                </form>
-
-            </c:forEach>
+        <div id="perguntas">
+            
         </div>
     </body>
 </html>

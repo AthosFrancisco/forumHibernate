@@ -2,11 +2,11 @@ var xhr = new XMLHttpRequest();
 var resposta;
 var perguntas;
 
-function carregarPerguntasProprias() {
+function carregarPerguntas() {
 
     perguntas = document.getElementById("perguntas");
 
-    xhr.open("get", "../UsuarioController?acao=VERPERGUNTASPROPRIAS", true);
+    xhr.open("get", "UsuarioController?acao=VERPERGUNTAS", true);
     xhr.send(null);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -15,7 +15,7 @@ function carregarPerguntasProprias() {
             
             for (var a = 0; a < resposta.length; a++) {
 
-                texto += "<form action=\"../UsuarioController\" method=\"post\">";
+                texto += "<form action=\"UsuarioController\" method=\"post\">";
                 texto += "<input name=\"acao\" id=\"" + resposta[a].id + "\" type=\"text\" value=\"\" readonly=\"readonly\" style=\"display: none\">";
                 texto += "<input type=\"text\" name=\"id\" value=\"" + resposta[a].id + "\" readonly=\"readonly\" style=\"display: none\">";
                 texto += "<label for=\"periodo\">Período:</label><br>";
@@ -51,7 +51,7 @@ function chamaLink(){
     xhr.send(null);
 
     if (xhr.readyState === 4 && xhr.status != 200) {
-        xhr.open("get", "../IndexController", false);
+        xhr.open("get", "IndexController", false);
         xhr.send(null);
         
         json = JSON.parse(xhr.responseText);
@@ -74,7 +74,7 @@ function chamaLink(){
 function init(){
     
     chamaLink();
-    carregarPerguntasProprias();
+    carregarPerguntas();
 }
 
 onload = init;
