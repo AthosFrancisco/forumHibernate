@@ -15,20 +15,18 @@ function carregarPerguntasProprias() {
             
             for (var a = 0; a < resposta.length; a++) {
 
-                texto += "<form action=\"../UsuarioController\" method=\"post\">";
+                texto += "<form action=\"UsuarioController\" method=\"post\">";
                 texto += "<input name=\"acao\" id=\"" + resposta[a].id + "\" type=\"text\" value=\"\" readonly=\"readonly\" style=\"display: none\">";
                 texto += "<input type=\"text\" name=\"id\" value=\"" + resposta[a].id + "\" readonly=\"readonly\" style=\"display: none\">";
-                texto += "<label for=\"periodo\">Período:</label><br>";
-                texto += "<input type=\"text\" name=\"periodo\" value=\"" + resposta[a].periodo + "\" readonly=\"readonly\"><br>";
-                texto += "<label for=\"materia\">Matéria:</label><br>";
-                texto += "<input type=\"text\" name=\"materia\" value=\"" + resposta[a].materia + "\" readonly=\"readonly\"><br>";
-                texto += "<label for=\"datapostagem\">Data da Postagem:</label><br>";
-                texto += "<input name=\"datapostagem\"type=\"text\" value=\"" + resposta[a].dataPostagem + "\" readonly=\"readonly\"><br>";
-                texto += "<label for=\"dataultimapostagem\">Data da Postagem:</label><br>";
-                texto += "<input name=\"dataultimapostagem\"type=\"text\" value=\"" + resposta[a].dataUltimaPostagem + "\" readonly=\"readonly\"><br>";
-                texto += "<label for=\"nome\">Autor:</label><br>";
-                texto += "<input type=\"text\" name=\"nome\" value=\"" + resposta[a].nomeUsuario + "\" readonly=\"readonly\"><br>";
-                texto += "<label for=\"textopergunta\">Pergunta:</label><br>";
+                texto += "<span>Período: "+resposta[a].periodo+"</span><br>";
+                texto += "<span>Matéria: "+resposta[a].materia+"</span><br>";
+                texto += "<span>Data Postagem: "+resposta[a].dataPostagem+"</span><br>";
+                texto += "<span>Última alteração: ";
+                if(resposta[a].dataUltimaPostagem !== undefined)
+                    texto += resposta[a].dataUltimaPostagem;
+                texto += "</span><br>";
+                texto += "<span>Autor: "+resposta[a].nomeUsuario+"</span><br>";
+                texto += "<span>Pergunta:</span><br>";
                 texto += "<textarea id=\"" + resposta[a].id + "\" name=\"textopergunta\" readonly=\"\">" + resposta[a].textoPergunta+ "</textarea>";
                 texto += "<a onclick=\"document.getElementById('" + resposta[a].id + "').removeAttribute('readonly')\" href=\"#pergunta" + resposta[a].id + "\">"+resposta[a].editar+"</a><br>";
                 texto += "<input type=\"submit\" value=\"" + resposta[a].editar + "\" onmouseover=\"document.getElementById('" + resposta[a].id + "').value = '" + resposta[a].editar + "pergunta'\">";

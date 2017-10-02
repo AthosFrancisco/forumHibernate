@@ -10,31 +10,17 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/chamaLogin.js"></script>
         <title>Perguntas e Respostas</title>
-        <style>
-            /* Note: Try to remove the following lines to see the effect of CSS positioning */
-            .affix {
-                top: 0;
-                width: 100%;
-            }
-
-            .affix + .container-fluid {
-                padding-top: 70px;
-            }
-        </style>
     </head>
     <body>
 
         <div class="container">
-            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
-            <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button id="link" type="button" class="btn btn-default"></a>
+            <a type="button" href="index.jsp">Home</a>
+            <a type="button" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
+            <a id="link" type="button" class="btn btn-default"></a>
 
-            <div class="container-fluid">
+            <div>
                 <h2>Pergunta</h2>
                 <p>Autor: ${requestScope.pergunta.nomeUsuario}</p>
                 <p>Periodo: ${requestScope.pergunta.periodo}</p>

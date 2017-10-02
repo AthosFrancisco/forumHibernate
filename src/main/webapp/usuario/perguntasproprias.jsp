@@ -16,7 +16,7 @@
     <body>
 
         <a button type="button" href="../index.jsp">Home</a>
-        <a button type="button" href="../UsuarioController?acao=verperguntas">Ver Perguntas</a>
+        <a button type="button" href="../perguntas.jsp">Ver Perguntas</a>
         <a button id="link" type="button"></a>
 
         <h1>Minhas Perguntas</h1>

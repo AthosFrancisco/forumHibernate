@@ -11,38 +11,27 @@
         <title>Cadastro</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/chamaLogin.js"></script>
     </head>
     <body>
 
-        <div class="container">
-            <a button type="button" class="btn btn-default" href="index.jsp">Home</a>
-            <a button type="button" class="btn btn-default" href="UsuarioController?acao=verperguntas">Ver Perguntas</a>
-            <a button id="link" type="button" class="btn btn-default"></a>
-            <h2>Formulário de Cadastro</h2>
+        <a type="button" href="index.jsp">Home</a>
+        <a type="button" href="perguntas.jsp">Ver Perguntas</a>
+        <a button id="link" type="button"></a>
+        <h2>Formulário de Cadastro</h2>
 
-            <form action="UsuarioController" method="post">
-                <input name="acao" type="text" value="criarusuario" readonly="readonly" style="display: none">
+        <form action="UsuarioController" method="post">
+            <input name="acao" type="text" value="criarusuario" readonly="readonly" style="display: none">
 
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input id="nome" type="text" class="form-control" placeholder="Digite seu nome completo" name="nome">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input id="email" type="email" class="form-control" placeholder="Digite seu email" name="email">
-                    ${requestScope.mensagem}
-                </div>
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input id="senha" type="password" class="form-control" placeholder="Digite sua senha" name="senha">
-                </div>
-                <button type="submit" class="btn btn-default">Salvar</button>
-            </form>
-        </div>
+            <label for="nome">Nome:</label>
+            <input id="nome" type="text" placeholder="Digite seu nome completo" name="nome">
+            <label for="email">Email:</label>
+            <input id="email" type="email" placeholder="Digite seu email" name="email">
+            ${requestScope.mensagem}
+            <label for="senha">Senha:</label>
+            <input id="senha" type="password" placeholder="Digite sua senha" name="senha">
+            <button type="submit">Salvar</button>
+        </form>
 
     </body>
 </html>
