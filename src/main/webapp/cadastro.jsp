@@ -15,7 +15,7 @@
     </head>
     <body>
 
-        <a type="button" href="index.jsp">Home</a>
+        <a href="index.jsp">Home</a>
         <a type="button" href="perguntas.jsp">Ver Perguntas</a>
         <a button id="link" type="button"></a>
         <h2>Formulário de Cadastro</h2>
